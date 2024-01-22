@@ -42,7 +42,7 @@ nav .timer {
 }
 
 .quest-btn {
-  background-color: #e64c66;
+  background-color: #0072FF;
   font-size: 1.25rem;
   padding: 0.8rem 1.4rem;
   width: 100%;
@@ -56,12 +56,12 @@ nav .timer {
 }
 
 .quest-btn:hover {
-  background-color: #d93a54; /* New color on hover */
+  background-color: #0063DD; /* New color on hover */
 }
 
 /* Change button color when clicked */
 .quest-btn:active {
-  background-color: #a8273e; /* Third color when clicked */
+  background-color: #004EAE; /* Third color when clicked */
 }
 
 main {
@@ -80,7 +80,7 @@ p {
 }
 
 #start-btn {
-  background-color: #e64c66;
+  background-color: #0072FF;
   font-size: 1.25rem;
   padding: 0.8rem 1.4rem;
   width: 100%;
@@ -94,10 +94,10 @@ p {
 }
 
 #start-btn:hover {
-  background-color: #d93a54; /* New color on hover */
+  background-color: #0063DD; /* New color on hover */
 }
 
 /* Change button color when clicked */
 #start-btn:active {
-  background-color: #a8273e; /* Third color when clicked */
+  background-color: #004EAE; /* Third color when clicked */
 }
