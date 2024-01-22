@@ -1,25 +1,30 @@
-var timeEl = document.querySelector(".timer");
+// button variables
 var startButtonEl = document.querySelector("#start-btn");
-var startpageE1 = document.querySelector("#startpage");
-var questpageE1 = document.querySelector("#questpage");
 var questButtons = document.querySelectorAll(".quest-btn");
 var retryButtonE1 = document.querySelector("#retry-btn");
 
-// v timer function v
+
+// page variables
+var startpageE1 = document.querySelector("#startpage");
+var questpageE1 = document.querySelector("#questpage");
 
 
+// timer variables
+var timeEl = document.querySelector(".timer");
 var timerInterval;
-var secondsLeft = 60;
+var secondsLeft = 61;
+
+
+
+// timer function (start button)
 
 startButtonEl.addEventListener('click', function setTime() {
-
   if (!timerInterval){
       timerInterval = setInterval(function() {
         secondsLeft--;
         timeEl.textContent = secondsLeft + " seconds";
 
         if(secondsLeft <= 0) {
-          // Stops execution of action at set interval
           clearInterval(timerInterval);
 
           timeEl.textContent = "";
@@ -28,15 +33,17 @@ startButtonEl.addEventListener('click', function setTime() {
           document.getElementById("startpage").style.display = "none";
           document.getElementById("questpage").style.display = "none";
         }
-
       }, 1000);
   }
 document.getElementById("resultpage").style.display = "none";
 document.getElementById("startpage").style.display = "none";
 document.getElementById("questpage").style.display = "block";
-
 }
 );
+
+
+
+// timer reset (retry button)
 
 retryButtonE1.addEventListener('click', function setTime() {
 
@@ -44,18 +51,14 @@ retryButtonE1.addEventListener('click', function setTime() {
     secondsLeft = 60;
     displayQuestion(questions[currentQuestion]);
 
-    // Additional logic to reset styles or anything else needed
 
-    // Restart the timer if needed
     clearInterval(timerInterval);
     timerInterval = setInterval(function() {
         secondsLeft--;
         timeEl.textContent = secondsLeft + " seconds";
 
         if(secondsLeft <= 0) {
-          // Stops execution of action at set interval
           clearInterval(timerInterval);
-
           timeEl.textContent = "";
           
           document.getElementById("resultpage").style.display = "block";
@@ -71,8 +74,9 @@ document.getElementById("questpage").style.display = "block";
     }
 );
 
-// v all the question information v
 
+
+// question information
 
 var questions = [
   {
@@ -126,6 +130,10 @@ var questions = [
   answer: "Salt Lake City"
 }];
 
+
+
+// display questions function
+
 var currentQuestion = 0;
 
 function displayQuestion(question) {
@@ -136,6 +144,10 @@ function displayQuestion(question) {
   document.getElementById("option4").innerText = question.options[3];
 }
 
+
+
+// next question
+
 function nextQuestion() {
 
   setTimeout(function() {
@@ -143,7 +155,7 @@ function nextQuestion() {
       currentQuestion++;
       displayQuestion(questions[currentQuestion]);
     } else {
-      // Handle end of questions, for example, display a message or reset to the first question
+
       clearInterval(timerInterval);
 
       timeEl.textContent = "";
@@ -156,44 +168,89 @@ function nextQuestion() {
 }
 
 
+
+// score variables
+
+var score = 100;
+var penaltyForIncorrect = 10;
+var penaltyForUnanswered = 10;
+
+
+
+// correct answer checker (button color changer)
 questButtons.forEach(function(button) {
   button.addEventListener('click', function() {
-    // Check if the clicked button's text content is equal to the correct answer
     if (button.textContent === questions[currentQuestion].answer) {
+      console.log(score)
       nextQuestion();
-    
-   // Set the background color for the correct button when active
-   button.style.backgroundColor = 'green';
-   button.style.color = 'white';
-   // You can adjust the delay or remove it based on your preference
-   setTimeout(function() {
-     // Reset the background color after a short delay
-     button.style.backgroundColor = '';
-     button.style.color = 'black';
-   }, 500); // 1000 milliseconds = 1 second
- } else {
-   // Set the background color for the incorrect button when active
-   button.style.backgroundColor = 'red';
-   button.style.color = 'white';
-   // Reset the background color after a short delay
-   setTimeout(function() {
-     button.style.backgroundColor = '';
-     button.style.color = 'black';
-   }, 500); // 1000 milliseconds = 1 second
-  }
+      button.style.backgroundColor = 'green';
+      button.style.color = 'white';
+
+      setTimeout(function() {
+        button.style.backgroundColor = '';
+        button.style.color = 'black';
+      }, 500);
+    } else {
+      button.style.backgroundColor = 'red';
+      button.style.color = 'white';
+
+      // Deduct points and time for incorrect answer
+      score -= penaltyForIncorrect;
+      secondsLeft -= penaltyForIncorrect;
+
+      setTimeout(function() {
+        button.style.backgroundColor = '';
+        button.style.color = 'black';
+      }, 500);
+    }
+
+    // Display score and handle end of quiz
+    updateScore();
   });
 });
 
-// Display the first question initially
+function updateScore() {
+  document.getElementById("score").innerText = "Score: " + score;
+}
+
+// Function to check the end of the quiz
+function checkEndOfQuiz() {
+  if (currentQuestion === questions.length - 1) {
+    clearInterval(timerInterval);
+    timeEl.textContent = "";
+
+
+
+    //!!!!!!!NEEDS TO BE FIXED 
+    var spareTime = secondsLeft;
+    score += spareTime;
+
+    var unansweredQuestions = questions.length - (currentQuestion + 1);
+    var unansweredPenalty = unansweredQuestions * penaltyForUnanswered;
+    score -= unansweredPenalty;
+
+    // Display the final score and other result elements
+    document.getElementById("resultpage").style.display = "block";
+    document.getElementById("startpage").style.display = "none";
+    document.getElementById("questpage").style.display = "none";
+  }
+}
+
+// start question display
 displayQuestion(questions[currentQuestion]);
 
 
+// Display initial score
+updateScore();
 
 
-// todo - function to send question to dom
-
-// todo - landing page has retry quiz button and initials prompt for highscores
 
 
-// todo - dom change for highscore page
-// todo - needs local storage to keep score
+
+//add how ever many seconds that are left as points
+//subtract 10 points for any questions you couldnt get to in the time limit
+
+//come up with final score and save to local storage
+
+//when quiz is over prompt user to save their score to the leaderboard with their initials
+//call back results for highscore html
