@@ -4,28 +4,43 @@
 <head>
     <meta charset="UTF-8" />
     <title>module4-challenge</title>
-  
-    <link rel="stylesheet" type="text/css" href="./assets/css/jass.css" />
+
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
 </head>
 
 <header>
     <nav>
-        <a href="#highscores">view high scores</a>
+        <a id = "highscore" href = "highscore.html" style="text-decoration: none; color: #d9e9e8;">View High Scores</a>
+        <div class = "timer"></div>
     </nav>
 </header>
 
 <body>
   
-    <main>
-        <h1>Coding Quiz Challenge</h1>
+    <main id = "startpage" >
+        <h1 class = "title" >Coding Quiz Challenge</h1>
         <hr />
 
-        <p>Try to answer the following code-related questions within the time limit.
+        <p class = "text1">Try to answer the following code-related questions within the time limit.
             Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-        <button id="start-btn">Start</button>
-       
+        <button id="start-btn">Start</button> 
     </main>
+    <main id = "questpage" >
+        <p id = "question" class = "text2">whats the answer to this question?</p>
+        <hr />
+
+        <button id = "option1" class="quest-btn">button 1</button>
+        <button id = "option2" class="quest-btn">button 2</button>
+        <button id = "option3" class="quest-btn">button 3</button>
+        <button id = "option4" class="quest-btn">button 4</button>
+        
+    </main>
+    <main id = "resultpage">
+        <h1 class = "text2">!Quiz Results!</h1>
+
+
+    </main>
+    <script src="assets/js/script.js"></script>
 </body>  
 
 </html>

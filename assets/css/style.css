@@ -8,12 +8,60 @@ body {
 }
 
 header {
-  background-color: black;
+  background-color: #2a2a2a;
   padding: 15px;
 }
 
-nav a {
+nav {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px;
+}
+
+nav .timer {
   color: #d9e9e8; 
+  text-decoration: none;
+}
+
+
+#startpage{
+  display: block;
+}
+
+#questpage {
+  display: none;
+}
+
+#resultpage {
+  display: none;
+}
+
+.text2 {
+  font-size: 2rem;
+}
+
+.quest-btn {
+  background-color: #e64c66;
+  font-size: 1.25rem;
+  padding: 0.8rem 1.4rem;
+  width: 100%;
+  display: block;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin-top: 15px;
+}
+
+.quest-btn:hover {
+  background-color: #d93a54; /* New color on hover */
+}
+
+/* Change button color when clicked */
+.quest-btn:active {
+  background-color: #a8273e; /* Third color when clicked */
 }
 
 main {
@@ -39,4 +87,17 @@ p {
   display: block;
   text-align: center;
   border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin-top: 15px;
+}
+
+#start-btn:hover {
+  background-color: #d93a54; /* New color on hover */
+}
+
+/* Change button color when clicked */
+#start-btn:active {
+  background-color: #a8273e; /* Third color when clicked */
 }
