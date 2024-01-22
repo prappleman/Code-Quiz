@@ -23,22 +23,24 @@
 
         <p class = "text1">Try to answer the following code-related questions within the time limit.
             Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-        <button id="start-btn">Start</button> 
+        <button id="start-btn" class="main-btn">Start</button> 
     </main>
     <main id = "questpage" >
-        <p id = "question" class = "text2">whats the answer to this question?</p>
-        <hr />
-
-        <button id = "option1" class = "quest-btn" >button 1</button>
-        <button id = "option2" class = "quest-btn" >button 2</button>
-        <button id = "option3" class = "quest-btn" >button 3</button>
-        <button id = "option4" class = "quest-btn" >button 4</button>
-        
+        <div class="quiz-container">
+            <p id = "question" class = "text2">whats the answer to this question?</p>
+            <hr />  
+        </div>
+        <div class="btn-container">
+            <button id = "option1" class = "quest-btn" >button 1</button>
+            <button id = "option2" class = "quest-btn" >button 2</button>
+            <button id = "option3" class = "quest-btn" >button 3</button>
+            <button id = "option4" class = "quest-btn" >button 4</button>
+        </div>
     </main>
     <main id = "resultpage">
         <h1 class = "text2">Quiz Results</h1>
             <hr />
-        <button id="start-btn">Retry</button> 
+        <button id="retry-btn" class="main-btn">Retry</button> 
     </main>
     <script src="assets/js/script.js"></script>
 </body>  

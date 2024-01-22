@@ -3,7 +3,7 @@ var startButtonEl = document.querySelector("#start-btn");
 var startpageE1 = document.querySelector("#startpage");
 var questpageE1 = document.querySelector("#questpage");
 var questButtons = document.querySelectorAll(".quest-btn");
-
+var retryButtonE1 = document.querySelector("#retry-btn");
 
 // v timer function v
 
@@ -38,6 +38,38 @@ document.getElementById("questpage").style.display = "block";
 }
 );
 
+retryButtonE1.addEventListener('click', function setTime() {
+
+  currentQuestion = 0;
+    secondsLeft = 60;
+    displayQuestion(questions[currentQuestion]);
+
+    // Additional logic to reset styles or anything else needed
+
+    // Restart the timer if needed
+    clearInterval(timerInterval);
+    timerInterval = setInterval(function() {
+        secondsLeft--;
+        timeEl.textContent = secondsLeft + " seconds";
+
+        if(secondsLeft <= 0) {
+          // Stops execution of action at set interval
+          clearInterval(timerInterval);
+
+          timeEl.textContent = "";
+          
+          document.getElementById("resultpage").style.display = "block";
+          document.getElementById("startpage").style.display = "none";
+          document.getElementById("questpage").style.display = "none";
+        }
+
+      }, 1000);
+  
+document.getElementById("resultpage").style.display = "none";
+document.getElementById("startpage").style.display = "none";
+document.getElementById("questpage").style.display = "block";
+    }
+);
 
 // v all the question information v
 
