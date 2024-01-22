@@ -164,17 +164,21 @@ questButtons.forEach(function(button) {
     
    // Set the background color for the correct button when active
    button.style.backgroundColor = 'green';
+   button.style.color = 'white';
    // You can adjust the delay or remove it based on your preference
    setTimeout(function() {
      // Reset the background color after a short delay
      button.style.backgroundColor = '';
+     button.style.color = 'black';
    }, 500); // 1000 milliseconds = 1 second
  } else {
    // Set the background color for the incorrect button when active
    button.style.backgroundColor = 'red';
+   button.style.color = 'white';
    // Reset the background color after a short delay
    setTimeout(function() {
      button.style.backgroundColor = '';
+     button.style.color = 'black';
    }, 500); // 1000 milliseconds = 1 second
   }
   });
