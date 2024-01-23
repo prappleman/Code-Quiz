@@ -238,6 +238,9 @@ saveButtonE1.addEventListener('click', function saveScore() {
   localStorage.setItem("finalScore", JSON.stringify({ name: playerName, score: score }));
   
   console.log("saved!")
+
+  // reset field
+  document.getElementById("playerName").value = "";
 });
 
   var leaderboardData = JSON.parse(localStorage.getItem("finalScore")) || [];

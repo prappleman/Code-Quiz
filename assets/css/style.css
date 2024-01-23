@@ -41,6 +41,16 @@ nav .timer {
   font-size: 2rem;
 }
 
+#score {
+  font-size: 2.5rem;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#savescore-btn {
+  margin-bottom: 25px;
+}
+
 .quest-btn {
   color: black;
   background-color: white;
