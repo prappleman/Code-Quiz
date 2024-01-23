@@ -22,8 +22,8 @@
         <table id="leaderboard">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Score</th>
+                    <th class="dark-text">Name</th>
+                    <th class="dark-text">Score</th>
                 </tr>
             </thead>
             <tbody id="leaderboardBody">
@@ -31,39 +31,46 @@
             </tbody>
         </table>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Retrieve the existing leaderboard data from local storage
-                var leaderboardData = JSON.parse(localStorage.getItem("finalScore")) || [];
-    
-                console.log("Leaderboard data:", leaderboardData);
-    
-                var leaderboardBody = document.getElementById("leaderboardBody");
-                leaderboardBody.innerHTML = ""; // Clear existing entries
-    
-                if (leaderboardData.length > 0) {
-                    console.log("Entering if statement");
-                    leaderboardData.forEach(entry => {
-                        // Accessing "name" and "score" properties of each entry
-                        var name = entry.name;
-                        var score = entry.score;
-    
-                        // Display the name and score (you can customize this part)
-                        console.log("Name:", name, "Score:", score);
-    
-                        // Add the entry to the leaderboard table
-                        var row = leaderboardBody.insertRow();
-                        row.insertCell(0).innerText = name;
-                        row.insertCell(1).innerText = score;
-                    });
-                } else {
-                    console.log("Entering else statement");
-                    // Display a message if the leaderboard is empty
-                    var row = leaderboardBody.insertRow();
-                    var cell = row.insertCell(0);
-                    cell.colSpan = 2;
-                    cell.innerText = "Leaderboard is empty.";
-                }
-            });
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Retrieve the existing leaderboard data from local storage
+    var leaderboardData = JSON.parse(localStorage.getItem("finalScores")) || [];
+
+    console.log("Leaderboard data:", leaderboardData);
+
+    // Clear existing entries
+    var leaderboardBody = document.getElementById("leaderboardBody");
+    leaderboardBody.innerHTML = ""; 
+
+    if (leaderboardData.length > 0) {
+        console.log("Entering if statement");
+
+        // Sort the leaderboardData array by score in descending order
+        leaderboardData.sort((a, b) => b.score - a.score);
+
+        leaderboardData.forEach(entry => {
+            // Accessing "name" and "score" properties of each entry
+            var name = entry.name;
+            var score = entry.score;
+
+            // Display the name and score (you can customize this part)
+            console.log("Name:", name, "Score:", score);
+
+            // Add the entry to the leaderboard table
+            var row = leaderboardBody.insertRow();
+            row.insertCell(0).innerText = name;
+            row.insertCell(1).innerText = score;
+        });
+    } else {
+        console.log("Entering else statement");
+
+        // Display a message if the leaderboard is empty
+        var row = leaderboardBody.insertRow();
+        var cell = row.insertCell(0);
+        cell.colSpan = 2;
+        cell.innerText = "Leaderboard is empty.";
+    }
+});
         </script>
     
     </main>

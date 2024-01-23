@@ -20,6 +20,8 @@ var secondsLeft = 31;
 
 startButtonEl.addEventListener('click', function setTime() {
 
+  localStorage.setItem("hasSavedScore", JSON.stringify(false));
+
   currentQuestion = 0;
   secondsLeft = 31;
   score = 100;
@@ -59,6 +61,8 @@ document.getElementById("questpage").style.display = "block";
 // timer reset (retry button)
 
 retryButtonE1.addEventListener('click', function setTime() {
+
+  localStorage.setItem("hasSavedScore", JSON.stringify(false));
 
   currentQuestion = 0;
   secondsLeft = 31;
@@ -218,7 +222,6 @@ questButtons.forEach(function(button) {
 function updateScore() {
   document.getElementById("score").innerText = "Score: " + score;
   console.log(score)
-  localStorage.setItem("finalScore", score);
 }
 
 
@@ -230,25 +233,35 @@ displayQuestion(questions[currentQuestion]);
 updateScore();
 
 
+// Check if the score has already been saved
+var hasSavedScore = JSON.parse(localStorage.getItem("hasSavedScore")) || false;
+
 saveButtonE1.addEventListener('click', function saveScore() {
-  // Get the player's name
+  if (!hasSavedScore) {
+
+  // Set the flag to indicate that the score has been saved
+  localStorage.setItem("hasSavedScore", JSON.stringify(true));
+  console.log("score has been input")
+
+  // Get the player's name and current score
   var playerName = document.getElementById("playerName").value;
+  var endScore = score;
 
-  // Save the final score with the player's name
-  localStorage.setItem("finalScore", JSON.stringify({ name: playerName, score: score }));
-  
-  console.log("saved!")
+  // Retrieve existing scores from local storage
+  var existingScores = JSON.parse(localStorage.getItem("finalScores")) || [];
 
-  // reset field
+  // Add the new score to the array
+  existingScores.push({ name: playerName, score: endScore });
+
+  // Save the updated scores back to local storage
+  localStorage.setItem("finalScores", JSON.stringify(existingScores));
+
+  console.log("Saved!");
+
+  // Reset field
   document.getElementById("playerName").value = "";
+} else {
+  console.log("Score has already been saved.");
+  // Optionally, you can display a message to the user indicating that the score has already been saved.
+}
 });
-
-  var leaderboardData = JSON.parse(localStorage.getItem("finalScore")) || [];
-  console.log("Leaderboard data:", leaderboardData);
-
-
-
-//come up with final score and save to local storage
-
-//when quiz is over prompt user to save their score to the leaderboard with their initials
-//call back results for highscore html

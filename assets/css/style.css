@@ -1,5 +1,5 @@
 body {
-  color: #d0d0d0;
+  color: white;
   background-color: #1a1a1a;  
   text-align: center;
   margin: 0;
@@ -20,25 +20,52 @@ nav {
 }
 
 nav .timer {
-  color: #d0d0d0; 
+  color: white; 
   text-decoration: none;
 }
 
+main {
+  margin: 3rem auto;
+  max-width: 90vw;
+  width: 100ch;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.text2 {
+  font-size: 2rem;
+}
 
 #startpage{
   display: block;
 }
 
-#questpage {
-  display: none;
+.main-btn {
+  color: black;
+  background-color: white;
+  font-size: 1.25rem;
+  padding: 1.5rem 1.4rem;
+  width: 100%;
+  display: block;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin-top: 25px;
 }
+
+/* result page */
 
 #resultpage {
   display: none;
-}
-
-.text2 {
-  font-size: 2rem;
 }
 
 #score {
@@ -49,6 +76,14 @@ nav .timer {
 
 #savescore-btn {
   margin-bottom: 25px;
+}
+
+
+
+/* quiz question pages */
+
+#questpage {
+  display: none;
 }
 
 .quest-btn {
@@ -67,59 +102,54 @@ nav .timer {
 }
 
 .quest-btn:hover {
-  background-color: lightgrey; /* New color on hover */
+  background-color: lightgrey;
 }
 
-/* Change button color when clicked */
 .quest-btn:active {
-  background-color: darkgrey; /* Third color when clicked */
-}
-
-main {
-  margin: 3rem auto;
-  max-width: 90vw;
-  width: 100ch;
-  }
-
-h1 {
-  font-size: 3rem;
-}
-
-p {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.main-btn {
-  color: black;
-  background-color: white;
-  font-size: 1.25rem;
-  padding: 1.5rem 1.4rem;
-  width: 100%;
-  display: block;
-  text-align: center;
-  border-radius: 10px;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  margin-top: 25px;
+  background-color: darkgrey;
 }
 
 .main-btn:hover {
-  background-color: lightgrey; /* New color on hover */
+  background-color: lightgrey;
 }
 
-/* Change button color when clicked */
 .main-btn:active {
-  background-color: darkgrey; /* Third color when clicked */
+  background-color: darkgrey; 
 }
 
 .quiz-container {
-  height: 100px; /* Fixed height for the question container */
-  margin-bottom: 50px; /* Adjust as needed */
+  height: 100px;
+  margin-bottom: 50px;
 }
 
 .btn-container {
   position: relative;
-  height: 50px; /* Fixed height for the button container */
+  height: 50px;
+}
+
+
+
+/* leaderboard page css */
+
+#leaderboard {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+#leaderboard th, #leaderboard td {
+  border: 2px solid white;
+  padding: 8px;
+}
+
+#leaderboard th {
+  background-color: white;
+}
+
+table {
+  align-content: center;
+}
+
+.dark-text {
+  color: #1a1a1a;
 }
