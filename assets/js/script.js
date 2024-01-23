@@ -2,7 +2,7 @@
 var startButtonEl = document.querySelector("#start-btn");
 var questButtons = document.querySelectorAll(".quest-btn");
 var retryButtonE1 = document.querySelector("#retry-btn");
-
+var saveButtonE1 = document.querySelector("#savescore-btn");
 
 // page variables
 var startpageE1 = document.querySelector("#startpage");
@@ -12,34 +12,47 @@ var questpageE1 = document.querySelector("#questpage");
 // timer variables
 var timeEl = document.querySelector(".timer");
 var timerInterval;
-var secondsLeft = 61;
+var secondsLeft = 31;
 
 
 
 // timer function (start button)
 
 startButtonEl.addEventListener('click', function setTime() {
-  if (!timerInterval){
-      timerInterval = setInterval(function() {
-        secondsLeft--;
-        timeEl.textContent = secondsLeft + " seconds";
 
-        if(secondsLeft <= 0) {
-          clearInterval(timerInterval);
+  currentQuestion = 0;
+  secondsLeft = 31;
+  score = 100;
 
-          timeEl.textContent = "";
+  displayQuestion(questions[currentQuestion]);
+  clearInterval(timerInterval);
+  timerInterval = setInterval(function() {
+
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds";
+
+    if(secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      timeEl.textContent = "";
           
-          document.getElementById("resultpage").style.display = "block";
-          document.getElementById("startpage").style.display = "none";
-          document.getElementById("questpage").style.display = "none";
-        }
-      }, 1000);
-  }
+      // unanswered questions
+      var unansweredQuestions = questions.length - (currentQuestion);
+      var unansweredPenalty = unansweredQuestions * penaltyForUnanswered;
+      score -= unansweredPenalty;
+      console.log("unanswered penalty " + unansweredPenalty)
+      console.log("unanswered questions " + unansweredQuestions)
+      
+      document.getElementById("resultpage").style.display = "block";
+      document.getElementById("startpage").style.display = "none";
+      document.getElementById("questpage").style.display = "none";
+    }
+    updateScore();
+  }, 1000);
+  
 document.getElementById("resultpage").style.display = "none";
 document.getElementById("startpage").style.display = "none";
 document.getElementById("questpage").style.display = "block";
-}
-);
+});
 
 
 
@@ -48,31 +61,39 @@ document.getElementById("questpage").style.display = "block";
 retryButtonE1.addEventListener('click', function setTime() {
 
   currentQuestion = 0;
-    secondsLeft = 60;
-    displayQuestion(questions[currentQuestion]);
+  secondsLeft = 31;
+  score = 100;
+  playerName = "";
 
+  displayQuestion(questions[currentQuestion]);
+  clearInterval(timerInterval);
+  timerInterval = setInterval(function() {
 
-    clearInterval(timerInterval);
-    timerInterval = setInterval(function() {
-        secondsLeft--;
-        timeEl.textContent = secondsLeft + " seconds";
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds";
 
-        if(secondsLeft <= 0) {
-          clearInterval(timerInterval);
-          timeEl.textContent = "";
+    if(secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      timeEl.textContent = "";
           
-          document.getElementById("resultpage").style.display = "block";
-          document.getElementById("startpage").style.display = "none";
-          document.getElementById("questpage").style.display = "none";
-        }
-
-      }, 1000);
+      // unanswered questions
+      var unansweredQuestions = questions.length - (currentQuestion);
+      var unansweredPenalty = unansweredQuestions * penaltyForUnanswered;
+      score -= unansweredPenalty;
+      console.log("unanswered penalty " + unansweredPenalty)
+      console.log("unanswered questions " + unansweredQuestions)
+      
+      document.getElementById("resultpage").style.display = "block";
+      document.getElementById("startpage").style.display = "none";
+      document.getElementById("questpage").style.display = "none";
+    }
+    updateScore();
+  }, 1000);
   
 document.getElementById("resultpage").style.display = "none";
 document.getElementById("startpage").style.display = "none";
 document.getElementById("questpage").style.display = "block";
-    }
-);
+});
 
 
 
@@ -90,11 +111,6 @@ var questions = [
   answer: "Landscape Arch"
 },
 {
-  question: "What is the Great Salt Lake known for in terms of its water composition?",
-  options: ["Freshwater", "Salinity", "Warm Temperature", "Mineral-rich"],
-  answer: "Salinity"
-},
-{
   question: "Which national park in Utah is famous for its slot canyons like The Narrows?",
   options: ["Arches National Park", "Bryce Canyon National Park", "Zion National Park", "Canyonlands National Park"],
   answer: "Zion National Park"
@@ -105,30 +121,11 @@ var questions = [
   answer: "Great Salt Lake"
 },
 {
-  question: "In which city is the Sundance Film Festival, one of the largest independent film festivals in the U.S., held annually?",
-  options: ["Salt Lake City", "Park City", "Provo", "Moab"],
-  answer: "Park City"
-},
-{
-  question: "What is the nickname given to the unusual rock formations in Goblin Valley State Park?",
-  options: ["Stone Soldiers", "Alien Rocks", "Hoodoos", "Goblins"],
-  answer: "Goblins"
-},
-{
   question: "Utah is famous for having 'The Greatest Snow on Earth.' Which ski resort claims this slogan?",
   options: ["Snowbird", "Park City Mountain Resort", "Deer Valley Resort", "Alta Ski Area"],
   answer: "Snowbird"
-},
-{
-  question: "What is the famous scenic byway in Utah that passes through red rock formations and is known for its breathtaking views?",
-  options: ["Highway 12", "Route 66", "Skyline Drive", "Pacific Coast Highway"],
-  answer: "Highway 12"
-},
-{
-  question: "The Utah Jazz is an NBA team based in which city?",
-  options: ["Salt Lake City", "Provo", "Ogden", "St. George"],
-  answer: "Salt Lake City"
-}];
+}
+];
 
 
 
@@ -154,16 +151,25 @@ function nextQuestion() {
     if (currentQuestion < questions.length - 1) {
       currentQuestion++;
       displayQuestion(questions[currentQuestion]);
+      console.log(currentQuestion)
     } else {
 
       clearInterval(timerInterval);
-
       timeEl.textContent = "";
           
+      // spare time
+      var spareTime = secondsLeft;
+      score += spareTime;
+      console.log("spare time " + spareTime)
+      
+
+      // switch to result page
       document.getElementById("resultpage").style.display = "block";
       document.getElementById("startpage").style.display = "none";
       document.getElementById("questpage").style.display = "none";
     }
+
+    updateScore();
   }, 500);
 }
 
@@ -173,7 +179,7 @@ function nextQuestion() {
 
 var score = 100;
 var penaltyForIncorrect = 10;
-var penaltyForUnanswered = 10;
+var penaltyForUnanswered = 20;
 
 
 
@@ -181,7 +187,6 @@ var penaltyForUnanswered = 10;
 questButtons.forEach(function(button) {
   button.addEventListener('click', function() {
     if (button.textContent === questions[currentQuestion].answer) {
-      console.log(score)
       nextQuestion();
       button.style.backgroundColor = 'green';
       button.style.color = 'white';
@@ -209,32 +214,13 @@ questButtons.forEach(function(button) {
   });
 });
 
+
 function updateScore() {
   document.getElementById("score").innerText = "Score: " + score;
+  console.log(score)
+  localStorage.setItem("finalScore", score);
 }
 
-// Function to check the end of the quiz
-function checkEndOfQuiz() {
-  if (currentQuestion === questions.length - 1) {
-    clearInterval(timerInterval);
-    timeEl.textContent = "";
-
-
-
-    //!!!!!!!NEEDS TO BE FIXED 
-    var spareTime = secondsLeft;
-    score += spareTime;
-
-    var unansweredQuestions = questions.length - (currentQuestion + 1);
-    var unansweredPenalty = unansweredQuestions * penaltyForUnanswered;
-    score -= unansweredPenalty;
-
-    // Display the final score and other result elements
-    document.getElementById("resultpage").style.display = "block";
-    document.getElementById("startpage").style.display = "none";
-    document.getElementById("questpage").style.display = "none";
-  }
-}
 
 // start question display
 displayQuestion(questions[currentQuestion]);
@@ -244,11 +230,20 @@ displayQuestion(questions[currentQuestion]);
 updateScore();
 
 
+saveButtonE1.addEventListener('click', function saveScore() {
+  // Get the player's name
+  var playerName = document.getElementById("playerName").value;
+
+  // Save the final score with the player's name
+  localStorage.setItem("finalScore", JSON.stringify({ name: playerName, score: score }));
+  
+  console.log("saved!")
+});
+
+  var leaderboardData = JSON.parse(localStorage.getItem("finalScore")) || [];
+  console.log("Leaderboard data:", leaderboardData);
 
 
-
-//add how ever many seconds that are left as points
-//subtract 10 points for any questions you couldnt get to in the time limit
 
 //come up with final score and save to local storage
 
