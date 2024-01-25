@@ -20,7 +20,7 @@ var secondsLeft = 31;
 
 startButtonEl.addEventListener('click', function setTime() {
 
-  localStorage.setItem("hasSavedScore", JSON.stringify(false));
+  document.getElementById("savescore-btn").style.display = "inline-block";
 
   currentQuestion = 0;
   secondsLeft = 31;
@@ -59,76 +59,39 @@ document.getElementById("questpage").style.display = "block";
 
 
 // timer reset (retry button)
-
-retryButtonE1.addEventListener('click', function setTime() {
-
-  localStorage.setItem("hasSavedScore", JSON.stringify(false));
-
-  currentQuestion = 0;
-  secondsLeft = 31;
-  score = 100;
-  playerName = "";
-
-  displayQuestion(questions[currentQuestion]);
-  clearInterval(timerInterval);
-  timerInterval = setInterval(function() {
-
-    secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds";
-
-    if(secondsLeft <= 0) {
-      clearInterval(timerInterval);
-      timeEl.textContent = "";
-          
-      // unanswered questions
-      var unansweredQuestions = questions.length - (currentQuestion);
-      var unansweredPenalty = unansweredQuestions * penaltyForUnanswered;
-      score -= unansweredPenalty;
-      console.log("unanswered penalty " + unansweredPenalty)
-      console.log("unanswered questions " + unansweredQuestions)
-      
-      document.getElementById("resultpage").style.display = "block";
-      document.getElementById("startpage").style.display = "none";
-      document.getElementById("questpage").style.display = "none";
-    }
-    updateScore();
-  }, 1000);
-  
-document.getElementById("resultpage").style.display = "none";
-document.getElementById("startpage").style.display = "none";
-document.getElementById("questpage").style.display = "block";
+retryButtonE1.addEventListener('click', function() {
+  startQuiz();
 });
-
 
 
 // question information
 
 var questions = [
   {
-  question: "What is the official state dinosaur of Utah?",
-  options: ["Allosaurus", "Stegosaurus", "Triceratops", "Velociraptor"],
-  answer: "Allosaurus"
-},
-{
-  question: "Which natural arch is the largest in the world and located in Utah?",
-  options: ["Delicate Arch", "Landscape Arch", "Rainbow Bridge", "Corona Arch"],
-  answer: "Landscape Arch"
-},
-{
-  question: "Which national park in Utah is famous for its slot canyons like The Narrows?",
-  options: ["Arches National Park", "Bryce Canyon National Park", "Zion National Park", "Canyonlands National Park"],
-  answer: "Zion National Park"
-},
-{
-  question: "Utah is home to the largest saltwater lake in the Western Hemisphere. What is its name?",
-  options: ["Great Salt Lake", "Utah Lake", "Bear Lake", "Sevier Lake"],
-  answer: "Great Salt Lake"
-},
-{
-  question: "Utah is famous for having 'The Greatest Snow on Earth.' Which ski resort claims this slogan?",
-  options: ["Snowbird", "Park City Mountain Resort", "Deer Valley Resort", "Alta Ski Area"],
-  answer: "Snowbird"
-}
+    question: "What is the keyword used to declare a variable in JavaScript?",
+    options: ["var", "let", "const", "variable"],
+    answer: "var"
+  },
+  {
+    question: "Which symbol is used for comments in JavaScript?",
+    options: ["/* */", "//", "#", "--"],
+    answer: "//"
+  },
+  {
+    question: "What is the purpose of the 'console.log()' function?",
+    options: ["To log errors", "To create a log file", "To print to the screen", "To display a message on the console"],
+    answer: "To display a message on the console"
+  },
+  {
+    question: "How do you write a 'for' loop in JavaScript?",
+    options: ["foreach (i in array)", "while (i < 5; i++)", "for (i = 0; i < 5; i++)", "loop (i from 1 to 5)"],
+    answer: "for (i = 0; i < 5; i++)"
+  },
+  {
+    question: "What is the purpose of '=== ' in JavaScript?",
+    options: ["It assigns a value", "It checks equality without type conversion", "It is a syntax error", "It performs strict addition"],
+    answer: "It checks equality without type conversion"
+  }
 ];
 
 
@@ -233,16 +196,7 @@ displayQuestion(questions[currentQuestion]);
 updateScore();
 
 
-// Check if the score has already been saved
-var hasSavedScore = JSON.parse(localStorage.getItem("hasSavedScore")) || false;
-
 saveButtonE1.addEventListener('click', function saveScore() {
-  if (!hasSavedScore) {
-
-  // Set the flag to indicate that the score has been saved
-  localStorage.setItem("hasSavedScore", JSON.stringify(true));
-  console.log("score has been input")
-
   // Get the player's name and current score
   var playerName = document.getElementById("playerName").value;
   var endScore = score;
@@ -255,13 +209,13 @@ saveButtonE1.addEventListener('click', function saveScore() {
 
   // Save the updated scores back to local storage
   localStorage.setItem("finalScores", JSON.stringify(existingScores));
+  
+  // Set the flag to indicate that the score has been saved
+  document.getElementById("savescore-btn").style.display = "none";
+  console.log("score has been input")
 
   console.log("Saved!");
 
   // Reset field
   document.getElementById("playerName").value = "";
-} else {
-  console.log("Score has already been saved.");
-  // Optionally, you can display a message to the user indicating that the score has already been saved.
-}
 });
