@@ -16,52 +16,50 @@ var secondsLeft = 31;
 
 
 
-// timer function (start button)
-
-startButtonEl.addEventListener('click', function setTime() {
-
+function startQuiz() {
   document.getElementById("savescore-btn").style.display = "inline-block";
 
   currentQuestion = 0;
   secondsLeft = 31;
   score = 100;
+  playerName = "";
 
   displayQuestion(questions[currentQuestion]);
   clearInterval(timerInterval);
   timerInterval = setInterval(function() {
-
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds";
 
-    if(secondsLeft <= 0) {
+    if (secondsLeft <= 0) {
       clearInterval(timerInterval);
       timeEl.textContent = "";
-          
+
       // unanswered questions
       var unansweredQuestions = questions.length - (currentQuestion);
       var unansweredPenalty = unansweredQuestions * penaltyForUnanswered;
       score -= unansweredPenalty;
-      console.log("unanswered penalty " + unansweredPenalty)
-      console.log("unanswered questions " + unansweredQuestions)
-      
+      console.log("unanswered penalty " + unansweredPenalty);
+      console.log("unanswered questions " + unansweredQuestions);
+
       document.getElementById("resultpage").style.display = "block";
       document.getElementById("startpage").style.display = "none";
       document.getElementById("questpage").style.display = "none";
     }
     updateScore();
   }, 1000);
-  
-document.getElementById("resultpage").style.display = "none";
-document.getElementById("startpage").style.display = "none";
-document.getElementById("questpage").style.display = "block";
-});
 
+  document.getElementById("resultpage").style.display = "none";
+  document.getElementById("startpage").style.display = "none";
+  document.getElementById("questpage").style.display = "block";
+}
 
-
-// timer reset (retry button)
+// Timer reset (retry button)
 retryButtonE1.addEventListener('click', function() {
   startQuiz();
 });
+
+// Timer function (start button)
+startButtonEl.addEventListener('click', startQuiz);
 
 
 // question information
