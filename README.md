@@ -37,8 +37,7 @@ THEN I can save my initials and score
 https://prappleman.github.io/module4-challenge/
 
 ## Application Images
-<img src="assets\images\Screenshot 2024-01-24 190531.png" width="800" title="start page">
-<br>
-<img src="assets\images\Screenshot 2024-01-24 190603.png"  title="quiz page">
-<img src="assets\images\Screenshot 2024-01-24 190613.png" width="500" title="result page">
-<img src="assets\images\Screenshot 2024-01-24 190630.png" width="500" title="leaderboard">
+<img src="assets\images\Screenshot 2024-01-24 190531.png" title="start page">
+<img src="assets\images\Screenshot 2024-01-24 190603.png" title="quiz page">
+<img src="assets\images\Screenshot 2024-01-24 190613.png" title="result page">
+<img src="assets\images\Screenshot 2024-01-24 190630.png" title="leaderboard">
