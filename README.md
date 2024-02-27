@@ -1,4 +1,4 @@
-# module4-challenge
+# Code Quiz
 
 ## User Story
 
