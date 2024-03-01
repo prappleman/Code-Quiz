@@ -34,7 +34,7 @@ THEN I can save my initials and score
 
 ## Deployed Web Page
 
-https://prappleman.github.io/module4-challenge/
+https://prappleman.github.io/Code-Quiz/
 
 ## Application Images
 <img src="assets\images\Screenshot 2024-01-24 190531.png" title="start page">
